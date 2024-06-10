@@ -17,7 +17,7 @@ Este es un proyecto de backend que proporciona una API para gestionar usuarios y
     JWT_SECRET=clave_secreta_jwt
     ```
 
-3. **Ejecución del servidor**: Una vez que hayas instalado las dependencias y configurado las variables de entorno, puedes iniciar el servidor ejecutando `npm start`.
+3. **Ejecución del servidor**: Una vez que hayas instalado las dependencias y configurado las variables de entorno, puedes iniciar el servidor ejecutando `npm run dev`.
 
 ## Estructura del proyecto
 

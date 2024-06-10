@@ -69,20 +69,20 @@ router.get('/', async (req, res) => {
 // DELETE /posts/:id Para permitir borrar un post - Solo el usuario dueño del post debe ser capaz de ejecutar esta acción
 
 router.delete('/:id', auth, async (req, res) => {
-    try{
-        const { id } = req.params
-        const deletedPost = await useCase.deletePost(id)
+    try {
+        const { id } = req.params;
+        const deletedPost = await useCase.deleteById(id)
         res.json({
-            success:true,
-            data: { post: deletedPost}
-        })
+            success: true,
+            data: { post: deletedPost }
+        });
     } catch(error) {
         res.status(error.status || 500);
         res.json({
             success: false,
             error: error.message
-        })
+        });
     }
-})
+});
 
 module.exports = router

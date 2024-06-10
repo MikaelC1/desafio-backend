@@ -5,7 +5,7 @@ const useCase = require('../usecases/users.usecase')
 async function auth(req, res, next){
     try{
         const token = req.headers.authorization
-
+        
         if(!token){
             throw createError(401, "JWT is required")
         }

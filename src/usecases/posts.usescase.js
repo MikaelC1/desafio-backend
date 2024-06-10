@@ -28,37 +28,22 @@ async function update(id, newData) {
         throw createError(404,'Post not found')
     }
 
-    if (newData.user !== post.user) {
-        throw createError(400, "You cant change the user!");
-    }
-
-    delete newData._id;
-
+    newData.user == post.user
     newData.updated_at = new Date();
     const update = await Posts.findByIdAndUpdate(id, newData, { new: true })
     return update
 }
 
 
-async function deletePost(id, userId) {
-    const post = await Posts.findById(id);
-
-    if (!post) {
-        throw createError(404, 'Post not found');
-    }
-
-    if (post.user !== userId) {
-        throw createError(403, 'You are not the owner of this post!');
-    }
-
-    const deletedPost = await Posts.findByIdAndDelete(id);
-    return deletedPost;
-}
+async function deleteById(id) {    
+    const postDeleted = await Posts.findByIdAndDelete(id);
+    return postDeleted;
+  }
 
 
 module.exports = {
     create,
     get,
     update,
-    deletePost
+    deleteById
 }
