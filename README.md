@@ -9,7 +9,7 @@ Este es un proyecto de backend que proporciona una API para gestionar usuarios y
 2. **Variables de entorno**: El proyecto utiliza variables de entorno para la configuración. Asegúrate de crear un archivo `.env` en el directorio raíz del proyecto y proporcionar los siguientes valores:
 
     ```plaintext
-    PORT=8000
+    PORT=8080
     DB_USER=usuario
     DB_PASSWORD=contraseña
     DB_HOST=host.mongodb.com
@@ -29,7 +29,8 @@ El proyecto sigue una estructura de carpetas organizada de la siguiente manera:
   - `routes/`: Rutas para definir los endpoints de la API.
   - `usecases/`: Casos de uso que encapsulan la lógica de negocio de la aplicación.
   - `lib/`: Utilidades y funciones auxiliares.
-- `tests/`: Contiene archivos de prueba para probar el código.
+- `server.js`: Contiene la informacion del servidor.
+- `index.js`: Inicia y conecta el servidor junto con la base de datos
 
 ## Endpoints de la API
 
