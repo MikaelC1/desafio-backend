@@ -1,5 +1,6 @@
 const express = require('express')
 const useCase = require('../usecases/posts.usescase')
+const jwt = require('../lib/jwt')
 const auth = require('../middlewares/auth.middleware')
 
 const router = express.Router()
@@ -32,8 +33,9 @@ router.post('/', auth, async (req, res) => {
 
 router.patch('/:id', auth, async (req, res) => {
     try{
+        const userId = req.user._id
         const { id } = req.params
-        const updatedPost = await useCase.update(id, req.body)
+        const updatedPost = await useCase.update(id, userId, req.body )
         res.json({
             success: true,
             data: { post: updatedPost }
@@ -70,8 +72,9 @@ router.get('/', async (req, res) => {
 
 router.delete('/:id', auth, async (req, res) => {
     try {
+        const userId = req.user._id
         const { id } = req.params;
-        const deletedPost = await useCase.deleteById(id)
+        const deletedPost = await useCase.deleteById(id, userId)
         res.json({
             success: true,
             data: { post: deletedPost }

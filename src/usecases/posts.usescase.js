@@ -21,11 +21,15 @@ async function get(search) {
 }
 
 
-async function update(id, newData) {
+async function update(id, userId,newData) {
     const post = await Posts.findById(id)
 
     if(!post) {
         throw createError(404,'Post not found')
+    }
+
+    if (post.user.toString() !== userId.toString()) {
+        throw createError(403, 'No eres el dueño de este post!');
     }
 
     newData.user == post.user
@@ -35,7 +39,17 @@ async function update(id, newData) {
 }
 
 
-async function deleteById(id) {    
+async function deleteById(id, userId) {    
+    const post = await Posts.findById(id)
+
+    if (!post) {
+        throw createError(404, 'Post not found');
+    }
+
+    if (post.user.toString() !== userId.toString()) {
+        throw createError(403, 'No eres el dueño de este post!');
+    }
+
     const postDeleted = await Posts.findByIdAndDelete(id);
     return postDeleted;
   }
