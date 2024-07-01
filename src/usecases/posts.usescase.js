@@ -7,17 +7,20 @@ async function create(postData){
 }
 
 async function get(search) {
-    if (!search) {
-        return await Posts.find()
+    let query = {};
+    if (search) {
+        query = { title: { $regex: search, $options: 'i' } };
     }
 
-    const posts = await Posts.find({ title: { $regex: search, $options: 'i' } })
+    const posts = await Posts.find(query)
+        .populate('user', 'userName profilePic')
+        .sort({ created_at: -1 });
 
     if (posts.length === 0) {
-        throw createError(404, 'No posts found')
+        throw createError(404, 'No posts found');
     }
 
-    return posts
+    return posts;
 }
 
 
