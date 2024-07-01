@@ -14,7 +14,6 @@ async function get(search) {
 
     const posts = await Posts.find(query)
         .populate('user', 'userName profilePic')
-        .sort({ created_at: -1 });
 
     if (posts.length === 0) {
         throw createError(404, 'No posts found');
