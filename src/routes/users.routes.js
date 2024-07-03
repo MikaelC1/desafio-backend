@@ -41,5 +41,21 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.get("/", async (req,res) => {
+    try{
+        const users = await useCase.getAll()
+        res.json({
+            success: true,
+            data: { users }
+        })
+    } catch(error) {
+        res.status(error.status || 500);
+        res.json({
+            success: false,
+            error: error.message
+        })
+    }
+})
+
 
 module.exports = router 
