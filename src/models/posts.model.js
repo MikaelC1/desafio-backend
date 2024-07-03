@@ -1,6 +1,14 @@
 const mongoose = require('mongoose')
 const modelName = 'Posts'
 
+const hashtagSchema = new mongoose.Schema({
+    hashtag: {
+        type: String,
+        minLength: 1,
+        maxLength: 22
+    }
+})
+
 const schema = new mongoose.Schema({
     title: {
         type: String,
@@ -18,6 +26,7 @@ const schema = new mongoose.Schema({
         minLength: 1,
         maxLength: 200,
     },
+    
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
@@ -30,6 +39,7 @@ const schema = new mongoose.Schema({
         type: Date,
         required: false
     },
+    hashtags: [hashtagSchema]
 })
 
 module.exports = mongoose.model(modelName, schema)
