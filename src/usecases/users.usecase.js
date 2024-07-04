@@ -21,7 +21,8 @@ async function create(userData) {
             throw new Error('Internal Error, please try again later');
         } else {
             throw new Error('Failed to create user');
-    }
+        }
+    }   
 }
 
 async function getById(id) {
