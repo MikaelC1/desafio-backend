@@ -2,16 +2,24 @@ const Users = require('../models/users.model')
 const createError = require('http-errors')
 const encrypt = require('../lib/encrypt')
 
-async function create(userData){
-    const userFound = await Users.findOne({ email: userData.email })
+async function create(userData) {
+    try {
+        // Check if the email already exists in the database
+        const userFound = await Users.findOne({ email: userData.email });
+        if (userFound) {
+            throw createError(409, 'Email already in use');
+        }
 
-    if(userFound){
-        throw createError(409, 'Email already in use')
+        // Encrypt the password before saving to the database
+        userData.password = await encrypt.encrypt(userData.password);
+
+        // Create a new user with the provided userData
+        const newUser = await Users.create(userData);
+        return newUser;
+    } catch (error) {
+        // Catch any errors that occur during the process
+        throw new Error(error.message);
     }
-    userData.password = await encrypt.encrypt(userData.password)
-
-    const newUser = await Users.create(userData)
-    return newUser
 }
 
 async function getById(id) {
