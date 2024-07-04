@@ -13,7 +13,7 @@ async function get(search) {
     }
 
     const posts = await Posts.find(query)
-        .populate('user', 'userName profilePic')
+        .populate('user', 'username profilePic')
 
     if (posts.length === 0) {
         throw createError(404, 'No posts found');

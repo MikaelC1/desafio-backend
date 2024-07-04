@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const modelName = 'Users'
 
 const schema = new mongoose.Schema({
-    userName: {
+    username: {
         type: String,
         required: true,
         minLength: 1,
