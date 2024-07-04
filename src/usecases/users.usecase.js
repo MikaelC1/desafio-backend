@@ -4,21 +4,23 @@ const encrypt = require('../lib/encrypt')
 
 async function create(userData) {
     try {
-        // Check if the email already exists in the database
         const userFound = await Users.findOne({ email: userData.email });
         if (userFound) {
-            throw createError(409, 'Email already in use');
+            throw createError(409, 'Email or Password are incorrect');
         }
 
-        // Encrypt the password before saving to the database
         userData.password = await encrypt.encrypt(userData.password);
 
-        // Create a new user with the provided userData
         const newUser = await Users.create(userData);
         return newUser;
     } catch (error) {
-        // Catch any errors that occur during the process
-        throw new Error(error.message);
+
+        if (error.status === 409) {
+            throw error;
+        } else if(error.status === 500){
+            throw new Error('Internal Error, please try again later');
+        } else {
+            throw new Error('Failed to create user');
     }
 }
 
