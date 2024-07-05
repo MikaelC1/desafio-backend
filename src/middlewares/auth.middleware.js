@@ -10,7 +10,6 @@ async function auth(req, res, next) {
             throw createError(401, "JWT is required");
         }
 
-        const token = authHeader.split(' ')[1];
         const payload = jwt.verify(token);
         const user = await useCase.getById(payload.id);
         
