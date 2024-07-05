@@ -12,7 +12,13 @@ function verify(token) {
         if (!token) {
             throw createError(401, 'Token not provided');
         }
-        return jsonwebtoken.verify(token, JWT_SECRET);
+        
+        if (!token.startsWith('Bearer ')) {
+            throw createError(401, 'Invalid token format');
+        }
+        
+        const tokenValue = token.split(' ')[1];
+        return jsonwebtoken.verify(tokenValue, JWT_SECRET);
     } catch (error) {
         if (error.name === 'TokenExpiredError') {
             throw createError(401, 'Token expired');
@@ -20,7 +26,6 @@ function verify(token) {
         throw createError(401, 'Invalid token');
     }
 }
-
 module.exports = {
     sign,
     verify
