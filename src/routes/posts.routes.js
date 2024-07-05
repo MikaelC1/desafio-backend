@@ -8,7 +8,7 @@ const router = express.Router()
 
 // POST /posts / Para crear un nuevo post, el post creado será asignado al usuario que llamó este endpoint
 
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const postData = {
             ...req.body,
