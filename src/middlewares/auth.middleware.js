@@ -4,9 +4,9 @@ const useCase = require('../usecases/users.usecase');
 
 async function auth(req, res, next) {
     try {
-        const authHeader = req.headers.authorization;
+        const token = req.headers.authorization;
 
-        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        if (!token || !token.startsWith('Bearer ')) {
             throw createError(401, "JWT is required");
         }
 
@@ -26,6 +26,6 @@ async function auth(req, res, next) {
             error: error.message
         });
     }
-}
+1}
 
 module.exports = auth;
