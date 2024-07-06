@@ -68,6 +68,23 @@ router.get('/', async (req, res) => {
     }
 })
 
+// get posts by Id
+
+router.get('/:id', async (req, res) => {
+    try {
+      const post = await useCase.getById(req.params.id);
+      res.json(
+        { 
+            success: true, 
+            data: { post } 
+        });
+
+    } catch (error) {
+
+      res.status(404).json({ success: false, error: 'Post not found' });
+    }
+  });
+
 // DELETE /posts/:id Para permitir borrar un post - Solo el usuario dueño del post debe ser capaz de ejecutar esta acción
 
 router.delete('/:id', auth, async (req, res) => {
@@ -87,5 +104,6 @@ router.delete('/:id', auth, async (req, res) => {
         });
     }
 });
+
 
 module.exports = router

@@ -22,6 +22,15 @@ async function get(search) {
     return posts;
 }
 
+async function getById(id) {
+    const post = await Posts.findById(id).populate('user', 'username profilePic');
+
+    if (!post) {
+        throw createError(404, 'Post not found');
+    }
+
+    return post;
+}
 
 async function update(id, userId,newData) {
     const post = await Posts.findById(id)
@@ -58,6 +67,7 @@ async function deleteById(id, userId) {
 
 
 module.exports = {
+    getById,
     create,
     get,
     update,
